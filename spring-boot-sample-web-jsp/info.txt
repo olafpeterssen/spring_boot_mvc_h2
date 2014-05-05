@@ -54,11 +54,34 @@ go za pierwszym razem do katalogu tymczasowego), normalnie (tzn bez Spring Boot)
 by sciagac go osobno, postawic i wrzucac na niego war'a z aplikacja.
 
 Uwagi:
-DAO
+-UserDAO
+Interface dostepu do bazy danych, jego implementacja UserDAOImpl 
+wykorzystuje JPA/Hibernate tak aby programista nie musial recznie pobierac
+polaczenia do bazy, i owijal kod swojego zapytania w try/catche ktore sa przy
+bezposrednim korzystaniu z JDBC.
 
-Sekwencja DB
+-Sekwencja DB
+W encji User pole id jest automatycznie inkrementowane w momencie tworzenia kolejnych
+rekortow.Jego wartosc pochodzi z sekwencji bazodanowej, skonfigurowanej autonaczynie 
+przez Hibernate.Gdyby nie skorzystac z Hibernate, trzeba by wartosci id (tzn klucza
+glownego tabeli user pilnowac samemu
 
-Schemat bazy
+-Transakcyjnosc
+UserDAOImpl w metodach zmieniajacych zawartosc bazy (tzn tworzenie obiektu, kasowanie)
+posiadaja anotacje @Transactional, tak aby operacje te zostaly wyslane do bazy i odbyly
+sie w ramach transakcji bazodanowej z zachowaniem zasad ACID.
+Anotacja ta jest ona niezbedna aby JPA moglo wysylac informacje o stanie obiektow do bazy,
+ew wykonalo operacje w ramach transakcji i nikt inny opererujacy na bazie nam w tym nie przeszkodzil.
+Przy operacji odczytu nie ma takiej potrzeby jako ze nie zmieniamy niczego w bazie.
+
+-Schemat bazy
+Hibernate automatycznie tworzy/burzy schemat bazy danych zgodnie z ustawieniem w application.properties:
+spring.jpa.hibernate.ddl-auto: create-drop
+Dzieku temu nie trzeba tworzyc skryptow inicjujacych schemat bazy (create table blabla...).
+
+
+Import do Eclipse:
+-Import - Existing Maven project - katalog z rozpakowanym projektem
 
 Uruchamianie:
 0.Sciagasz H2

@@ -62,7 +62,7 @@ bezposrednim korzystaniu z JDBC.
 
 -Sekwencja DB
 W encji User pole id jest automatycznie inkrementowane w momencie tworzenia kolejnych
-rekortow.Jego wartosc pochodzi z sekwencji bazodanowej, skonfigurowanej autonaczynie 
+rekordow.Jego wartosc pochodzi z sekwencji bazodanowej, skonfigurowanej automaczynie 
 przez Hibernate.Gdyby nie skorzystac z Hibernate, trzeba by wartosci id (tzn klucza
 glownego tabeli user pilnowac samemu
 

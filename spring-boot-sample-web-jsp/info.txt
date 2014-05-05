@@ -1,0 +1,69 @@
+Przykladowy projekt pokazujacy aplikacje webowa (czyli dzialajaca
+na serwerze aplikacji, wysylajaca HTML do przegladarki) czerpiaca dane do wyswietlenia
+z relacyjnej bazy danych.
+
+Wykorzystane technologie wraz z wyjasnieniem dlaczego zostaly uzyte i do czego sluza:
+
+-Spring Framework
+Biblioteka pozwalajaca na implemntacje wzorca projektowego Inversion of Control lub Dependency Injection.
+Generalnie chodzi tutaj o to aby programista nie musial recznie instancjonowac (poprzez new Costam(..))
+obiektow i kontruktorami/setterami ustawiac na wszystkich obiektach z jakich zamierza korzystac w aplikacji
+zaleznosci (obiekt A zalezy od obiektu B itd).
+
+-Spring MVC
+Implementacja wzorca Model-View-Controller, czyli:
+*kontroler: 
+1.reaguje na poszczegolne requesty (poszczegolne URLe)
+2.wywoluje logike biznesowa (interface UserDAO i jego implementacja)
+3.przekazuje kontrole do warswty widoku (View, u nas JSP) 
+
+*widok
+1.przetwarza JSP do HTML ktory moze zostac wyswietlony w przegladarce
+
+*model
+1.modeluje logike biznesowa (u nas to klasa User odpowiadajaca tabeli w bazie danych)
+
+-JSP
+Technologia pozwalajaca na tworzenie szablonow HTML po stronie serwera, zanim
+HTML zostanie wyslany do przegladarki.Umozliwia np instrukcje warunkowe (c:when, c:forEach itd)
+ktore na podstawie otrzymanych danych tworza dynamicznie HTML (w HTMLu nie ma zadnych instrukcji
+warunkowych). 
+
+-JPA (implementacja w postaci biblioteki Hibernate)
+Technologia mocno ulatwiajaca prace z relacyjna baza danych,
+jej implementacje (np uzyty Hibernate) nazywa sie czesto ORM (Object-Relational-Mapper).
+Sluza do odzworowania zawartosci okreslonych tabel relacyjnej bazy danych do obiektow Java,
+dzieki czemu programista nie musi pisac czystego SQLa w zapytaniach.
+Zamiast SQLa w zapytaniach uzywa sie JPQLa (sa one do siebie podobne ale nie sa identyczne).
+
+-Spring Boot
+Technologia umozliwiajaca zestawienie calego stosu technologicznego uzytego do stworzenia
+aplikacji (tzn wszystkich bibliotek np Spring MVC, Hibernate itd) i uruchomienia jej 
+na zagniezdzonym w projekcie Tomcacie (tzn takim ktorego
+nie trzeba wczesniej instalowac/konfigurowac).  
+
+-Maven 3
+Technologia grupujaca biblioteki i ich zaleznosci dzieki czemu programista nie musi dbac
+o to gdzie na dysku ma biblioteki, w jakiej wersji itd.
+Oprocz tego przygotowuje jara/wara z tworzona aplikacja.
+
+-Tomcat 7 
+Serwer aplikacji na ktorym uruchamiana jest aplikacja webowa.
+U nas z racji skorzystania ze Spring Boot jest on zagniezdzony w projekcie (Spring sciaga 
+go za pierwszym razem do katalogu tymczasowego), normalnie (tzn bez Spring Boot) trzeba
+by sciagac go osobno, postawic i wrzucac na niego war'a z aplikacja.
+
+Uwagi:
+DAO
+
+Sekwencja DB
+
+Schemat bazy
+
+Uruchamianie:
+0.Sciagasz H2
+1.Uruchamiasz H2 (http://www.h2database.com/html/cheatSheet.html -> "Server start")
+2.Uruchamiasz z Eclipsa klase SampleWebJspApplication, w konsoli Eclipsowej zobaczysz 
+jak aplikacja startuje.
+3.Po paru sekundach mozesz w przegladarke wpisac http://localhost:8080/user/list
+
